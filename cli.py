@@ -93,6 +93,11 @@ def delete_guest(guest_id):
     else:
         click.echo(f'Guest ID {guest_id} not found.')
 
+@cli.command()
+def exit():
+    click.echo('Exiting the CLI.')
+    raise SystemExit
+
 cli.add_command(add_hotel)
 cli.add_command(add_room)
 cli.add_command(add_guest)
