@@ -60,12 +60,48 @@ def list_guests(room_id):
     for guest in guests:
         click.echo(f'Guest ID: {guest.id}, Nationality: {guest.nationality}, Room ID: {guest.room_id}')
 
+@click.command()
+@click.argument('hotel_id')
+def delete_hotel(hotel_id):
+    hotel = session.query(Hotel).get(hotel_id)
+    if hotel:
+        session.delete(hotel)
+        session.commit()
+        click.echo(f'Hotel ID {hotel_id} deleted.')
+    else:
+        click.echo(f'Hotel ID {hotel_id} not found.')
+
+@click.command()
+@click.argument('room_id')
+def delete_room(room_id):
+    room = session.query(Room).get(room_id)
+    if room:
+        session.delete(room)
+        session.commit()
+        click.echo(f'Room ID {room_id} deleted.')
+    else:
+        click.echo(f'Room ID {room_id} not found.')
+
+@click.command()
+@click.argument('guest_id')
+def delete_guest(guest_id):
+    guest = session.query(Guest).get(guest_id)
+    if guest:
+        session.delete(guest)
+        session.commit()
+        click.echo(f'Guest ID {guest_id} deleted.')
+    else:
+        click.echo(f'Guest ID {guest_id} not found.')
+
 cli.add_command(add_hotel)
 cli.add_command(add_room)
 cli.add_command(add_guest)
 cli.add_command(list_hotels)
 cli.add_command(list_rooms)
 cli.add_command(list_guests)
+cli.add_command(delete_hotel)
+cli.add_command(delete_room)
+cli.add_command(delete_guest)
 
 if __name__ == '__main__':
     cli()
